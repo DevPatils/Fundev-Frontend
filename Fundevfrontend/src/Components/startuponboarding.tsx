@@ -14,13 +14,16 @@ export function OnboardForm({ onClose }: { onClose: () => void }) { // Receive o
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (!token) {
-            alert('Login required!');
-            
+            navigate('/register'); // Redirect to the registration page if no token is present
         }
     }, [navigate]);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        // Reset messages
+        setError('');
+        setSuccess('');
 
         try {
             const response = await axios.post('https://fundev-backend.onrender.com/api/startup/onboard', {
@@ -35,12 +38,18 @@ export function OnboardForm({ onClose }: { onClose: () => void }) { // Receive o
             if (response.status === 201) {
                 setSuccess('Startup onboarded successfully!');
                 console.log('Startup onboarded:', response.data);
+                // Optionally close the form after successful submission
+                onClose();
             } else {
                 setError(response.data.message || 'Onboarding failed.');
             }
         } catch (error) {
+            if (axios.isAxiosError(error) && error.response) {
+                setError(`Error: ${error.response.status} - ${error.response.data.message || 'An error occurred'}`);
+            } else {
+                setError('An error occurred. Please try again.');
+            }
             console.error('Error:', error);
-            setError('An error occurred. Please try again.');
         }
     };
 
