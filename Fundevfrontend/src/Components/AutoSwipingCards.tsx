@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Autoplay } from 'swiper/modules';
-import azadi from '../assets/azadi.jpg';
 import p1 from '../assets/p1.jpg';
-import p2 from '../assets/p2.png';
+import p2 from '../assets/p2.jpg';
 import p3 from '../assets/p3.jpg';
 import p4 from '../assets/p4.jpg';
 
@@ -12,14 +11,14 @@ import 'swiper/css/pagination';
 
 const AutoSwipingCards: React.FC = () => {
     const cardDetails = [
-        { title: 'Funding', description: '', imageUrl: p1 },
-        { title: 'Patent Application', description: '', imageUrl: p2 },
-        { title: 'Schemes', description: '', imageUrl: p3 },
-        { title: 'Meetups', description: '', imageUrl: p4 },
+        { title: '', description: '', imageUrl: p1 },
+        { title: '', description: '', imageUrl: p2 },
+        { title: '', description: '', imageUrl: p3 },
+        { title: '', description: '', imageUrl: p4 },
     ];
 
     return (
-        <div className="swiper-container max-w-2xl mx-auto mt-6" style={{ height: '300px' }}>
+        <div className="swiper-container max-w-2xl mx-auto mt-6" style={{ height: '340px' }}>
             <Swiper
                 modules={[Pagination, Autoplay]}
                 spaceBetween={20}
@@ -35,7 +34,7 @@ const AutoSwipingCards: React.FC = () => {
                 {cardDetails.map((card, index) => (
                     <SwiperSlide key={index}>
                         <div
-                            className="p-6 rounded-lg shadow-lg text-black flex flex-col justify-center items-center"
+                            className="p-6 rounded-sm shadow-lg text-black flex flex-col justify-center items-center"
                             style={{
                                 backgroundImage: `url(${card.imageUrl})`,
                                 backgroundSize: 'cover',
