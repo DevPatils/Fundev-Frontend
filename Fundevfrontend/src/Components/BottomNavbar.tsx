@@ -29,13 +29,13 @@ const BottomNavbar: React.FC = () => {
                         </div>
                         <div className="login-bar flex justify-center items-center gap-5 mr-[15%]">
                             <button 
-                                className="bg-white text-blue-500 hover:bg-blue-600 w-[100%]" 
+                                className="bg-white text-blue-500 p-2 rounded hover:bg-blue-600 " 
                                 onClick={() => setFormType("login")}
                             >
                                 Login
                             </button>
                             <button 
-                                className="bg-white text-blue-500 p-2 rounded hover:bg-blue-600" 
+                                className="bg-white text-blue-500 p-2 rounded hover:bg-blue-600 " 
                                 onClick={() => setFormType("register")}
                             >
                                 Register
