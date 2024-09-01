@@ -16,7 +16,7 @@ export function OnboardForm({ onClose }: { onClose: () => void }) {
         const token = localStorage.getItem('token');
         if (!token) {
             alert('Login required!');
-            navigate('/login');
+            navigate('/');
         }
     }, [navigate]);
 
