@@ -4,6 +4,7 @@ import BottomNavbar from '../Components/BottomNavbar'
 import Footer from '../Components/Footer'
 import AutoSwipingCards from '../Components/AutoSwipingCards'
 import TopFacilities from '../Components/TopFacilities'
+import StartupContentBox from '../Components/StartupConetentBox'
 
 
 const Home = () => {
@@ -19,6 +20,7 @@ const Home = () => {
                 <TopFacilities />
             </div>
         </div>
+        <StartupContentBox />
         <Footer />
     </div>
   )
