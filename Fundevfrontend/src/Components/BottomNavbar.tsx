@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import aazadi from '../assets/azadi.jpg';
 import amblum from '../assets/gog.jpeg';
 import { LoginForm } from './LoginForm';
@@ -6,6 +7,7 @@ import { RegisterForm } from './RegisterForm';
 
 const BottomNavbar: React.FC = () => {
     const [formType, setFormType] = useState<"login" | "register" | null>(null);
+    const navigate = useNavigate(); // Initialize useNavigate
 
     const closeForm = () => setFormType(null);
 
@@ -45,7 +47,12 @@ const BottomNavbar: React.FC = () => {
                 </div>
             </div>
             <div className="w-full bg-white border-t border-b p-4 flex justify-between items-center">
-                <button className="flex-1 mx-2 py-2 bg-white text-blue-500 rounded hover:bg-blue-600">About</button>
+                <button 
+                    className="flex-1 mx-2 py-2 bg-white text-blue-500 rounded hover:bg-blue-600"
+                    onClick={() => navigate('/')}  // Navigate to the home route on click
+                >
+                    About
+                </button>
                 <button className="flex-1 mx-2 py-2 bg-white text-blue-500 rounded hover:bg-blue-600">Funding</button>
                 <button className="flex-1 mx-2 py-2 bg-white text-blue-500 rounded hover:bg-blue-600">Patent Application</button>
                 <button className="flex-1 mx-2 py-2 bg-white text-blue-500 rounded hover:bg-blue-600">Schemes</button>
