@@ -51,9 +51,14 @@ const BottomNavbar: React.FC = () => {
                     className="flex-1 mx-2 py-2 bg-white text-blue-500 rounded hover:bg-blue-600"
                     onClick={() => navigate('/')}  // Navigate to the home route on click
                 >
-                    About
+                    Home
                 </button>
-                <button className="flex-1 mx-2 py-2 bg-white text-blue-500 rounded hover:bg-blue-600">Funding</button>
+                <button 
+                    className="flex-1 mx-2 py-2 bg-white text-blue-500 rounded hover:bg-blue-600"
+                    onClick={() => navigate('/funding')}  // Navigate to the home route on click
+                >
+                    Register Startup
+                </button>
                 <button className="flex-1 mx-2 py-2 bg-white text-blue-500 rounded hover:bg-blue-600">Patent Application</button>
                 <button className="flex-1 mx-2 py-2 bg-white text-blue-500 rounded hover:bg-blue-600">Schemes</button>
                 <button className="flex-1 mx-2 py-2 bg-white text-blue-500 rounded hover:bg-blue-600">Meetups</button>
