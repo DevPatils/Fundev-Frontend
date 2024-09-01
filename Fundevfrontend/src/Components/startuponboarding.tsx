@@ -1,22 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate for redirection
+import { useNavigate } from 'react-router-dom';
 
-export function OnboardForm({ onClose }: { onClose: () => void }) { // Receive onClose as a prop
+export function OnboardForm({ onClose }: { onClose: () => void }) {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [industry, setIndustry] = useState('');
     const [fundingGoal, setFundingGoal] = useState('');
+    const [logoBase64, setLogoBase64] = useState<string | null>(null); // Store Base64 encoded logo
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
-    const navigate = useNavigate(); // Initialize navigate for redirection
+    const navigate = useNavigate();
 
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (!token) {
-            navigate('/register'); // Redirect to the registration page if no token is present
+            alert('Login required!');
+            
         }
     }, [navigate]);
+
+    // Convert image file to Base64
+    const handleLogoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setLogoBase64(reader.result as string); // Store Base64 data
+            };
+            reader.readAsDataURL(file);
+        }
+    };
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -26,13 +40,17 @@ export function OnboardForm({ onClose }: { onClose: () => void }) { // Receive o
         setSuccess('');
 
         try {
-            const response = await axios.post('https://fundev-backend.onrender.com/api/startup/onboard', {
+            const response = await axios.post('http://localhost:3000/api/startup/onboard', {
                 name,
                 description,
                 industry,
                 fundingGoal,
+                logoBase64, // Send Base64 encoded logo as part of the payload
             }, {
-                headers: { 'auth-token': localStorage.getItem('token') }  // Include the JWT token in the headers
+                headers: {
+                    'auth-token': localStorage.getItem('token'),
+                    'Content-Type': 'application/json', // JSON payload
+                }
             });
 
             if (response.status === 201) {
@@ -57,7 +75,7 @@ export function OnboardForm({ onClose }: { onClose: () => void }) { // Receive o
         <div className="relative max-w-md w-full mx-auto rounded-lg p-4 shadow-md bg-white">
             <button
                 className="absolute top-2 right-2 text-gray-800"
-                onClick={onClose} // Close the form when button is clicked
+                onClick={onClose}
             >
                 ✖
             </button>
@@ -121,6 +139,19 @@ export function OnboardForm({ onClose }: { onClose: () => void }) { // Receive o
                         value={fundingGoal}
                         onChange={(e) => setFundingGoal(e.target.value)}
                         required
+                    />
+                </div>
+
+                <div className="mb-4">
+                    <label htmlFor="startup-logo" className="block text-gray-700">
+                        Logo
+                    </label>
+                    <input
+                        id="startup-logo"
+                        type="file"
+                        accept="image/*"
+                        className="border border-gray-300 rounded-lg p-2 w-full"
+                        onChange={handleLogoChange}
                     />
                 </div>
 
