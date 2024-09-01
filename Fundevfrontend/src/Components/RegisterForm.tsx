@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";  // Import Axios
 
 export function RegisterForm({ onClose }: { onClose: () => void }) {
   // State variables for form inputs
@@ -12,24 +13,20 @@ export function RegisterForm({ onClose }: { onClose: () => void }) {
     e.preventDefault();
 
     try {
-      const response = await fetch('https://fundev-backend.onrender.com/api/user/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ name, email, password }),
+      const response = await axios.post('https://fundev-backend.onrender.com/api/user/register', {
+        name,
+        email,
+        password,
       });
 
-      const data = await response.json();
-
-      if (response.ok) {
+      if (response.status === 201) {
         // Handle success (e.g., display a message or save the token)
         setSuccess('Registration successful!');
-        localStorage.setItem('token', data.token);  // Save the token to localStorage
-        console.log('User registered:', data);
+        localStorage.setItem('token', response.data.token);  // Save the token to localStorage
+        console.log('User registered:', response.data);
       } else {
         // Handle error (e.g., display a message)
-        setError(data.message || 'Registration failed.');
+        setError(response.data.message || 'Registration failed.');
       }
     } catch (error) {
       console.error('Error:', error);

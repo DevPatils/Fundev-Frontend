@@ -1,18 +1,35 @@
 import React, { useState } from "react";
+import axios from "axios"; // Import Axios
 
 export function LoginForm({ onClose }: { onClose: () => void }) {
   // State variables for form inputs
-  
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Handle the form submission
-    
-    console.log("Email:", email);
-    console.log("Password:", password);
-    // Here, you can send the data to the backend or perform other actions
+
+    try {
+      const response = await axios.post('https://fundev-backend.onrender.com/api/user/login', {
+        email,
+        password,
+      });
+
+      if (response.status === 200) {
+        // Handle success (e.g., display a message or save the token)
+        setSuccess('Login successful!');
+        localStorage.setItem('token', response.data.token);  // Save the token to localStorage
+        console.log('User logged in:', response.data);
+      } else {
+        // Handle error (e.g., display a message)
+        setError(response.data.message || 'Login failed.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      setError('An error occurred. Please try again.');
+    }
   };
 
   return (
@@ -23,18 +40,16 @@ export function LoginForm({ onClose }: { onClose: () => void }) {
       >
         ✖
       </button>
-      <h2 className="font-bold text-xl text-gray-800">Register to Government Portal</h2>
-      <p className="text-gray-600 text-sm mt-2">Sign up with your name, email, and password</p>
+      <h2 className="font-bold text-xl text-gray-800">Login to Government Portal</h2>
+      <p className="text-gray-600 text-sm mt-2">Log in with your email and password</p>
 
       <form className="my-4" onSubmit={handleSubmit}>
-
-
         <div className="mb-4">
-          <label htmlFor="register-email" className="block text-gray-700">
+          <label htmlFor="login-email" className="block text-gray-700">
             Email
           </label>
           <input
-            id="register-email"
+            id="login-email"
             placeholder="johndoe@example.com"
             type="email"
             className="border border-gray-300 rounded-lg p-2 w-full"
@@ -44,11 +59,11 @@ export function LoginForm({ onClose }: { onClose: () => void }) {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="register-password" className="block text-gray-700">
+          <label htmlFor="login-password" className="block text-gray-700">
             Password
           </label>
           <input
-            id="register-password"
+            id="login-password"
             placeholder="••••••••"
             type="password"
             className="border border-gray-300 rounded-lg p-2 w-full"
@@ -57,13 +72,18 @@ export function LoginForm({ onClose }: { onClose: () => void }) {
           />
         </div>
 
+        {error && <p className="text-red-500">{error}</p>}
+        {success && <p className="text-green-500">{success}</p>}
+
         <button
           className="bg-blue-600 text-white rounded-md h-10 w-full font-medium"
           type="submit"
         >
-          Register
+          Log In
         </button>
       </form>
     </div>
   );
 }
+
+export default LoginForm;
