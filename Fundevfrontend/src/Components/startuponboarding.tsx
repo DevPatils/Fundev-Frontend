@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for redirection
-
 export function OnboardForm({ onClose }: { onClose: () => void }) { // Receive onClose as a prop
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
@@ -10,7 +9,7 @@ export function OnboardForm({ onClose }: { onClose: () => void }) { // Receive o
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
     const navigate = useNavigate(); // Initialize navigate for redirection
-
+ // Access backend URL from .env
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (!token) {
