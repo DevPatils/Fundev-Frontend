@@ -2,20 +2,24 @@ import React, { useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Autoplay } from 'swiper/modules';
 import azadi from '../assets/azadi.jpg';
+import p1 from '../assets/p1.jpg';
+import p2 from '../assets/p2.png';
+import p3 from '../assets/p3.jpg';
+import p4 from '../assets/p4.jpg';
+
 import 'swiper/css';
 import 'swiper/css/pagination';
 
 const AutoSwipingCards: React.FC = () => {
     const cardDetails = [
-        { title: 'About', description: 'Learn more about the department and its initiatives.', imageUrl: azadi },
-        { title: 'Funding', description: 'Explore funding opportunities and support schemes.', imageUrl: azadi },
-        { title: 'Patent Application', description: 'Find out how to apply for patents and protect your ideas.', imageUrl: azadi },
-        { title: 'Schemes', description: 'Get information on various government schemes available.', imageUrl: azadi },
-        { title: 'Meetups', description: 'Join meetups and events organized by the department.', imageUrl: azadi },
+        { title: 'Funding', description: '', imageUrl: p1 },
+        { title: 'Patent Application', description: '', imageUrl: p2 },
+        { title: 'Schemes', description: '', imageUrl: p3 },
+        { title: 'Meetups', description: '', imageUrl: p4 },
     ];
 
     return (
-        <div className="swiper-container max-w-lg mx-auto mt-6" style={{ height: '300px' }}>
+        <div className="swiper-container max-w-2xl mx-auto mt-6" style={{ height: '300px' }}>
             <Swiper
                 modules={[Pagination, Autoplay]}
                 spaceBetween={20}
@@ -41,8 +45,11 @@ const AutoSwipingCards: React.FC = () => {
                                 width: '100%',
                             }}
                         >
-                            <h2 className="text-2xl font-bold mb-2">{card.title}</h2>
-                            <p className="text-lg">{card.description}</p>
+                            <div className='justify-items-start'>
+                                <h2 className="text-2xl font-bold mb-2">{card.title}</h2>
+
+                                <p className="text-lg font-semibold">{card.description}</p>
+                            </div>
                         </div>
                     </SwiperSlide>
                 ))}
