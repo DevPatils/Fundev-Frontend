@@ -7,12 +7,17 @@ export function LoginForm({ onClose }: { onClose: () => void }) {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [loginType, setLoginType] = useState<'user' | 'investor'>('user'); // State to track login type
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    const endpoint = loginType === 'user'
+      ? 'https://fundev-backend.onrender.com/api/user/login'
+      : 'https://fundev-backend.onrender.com/api/user/login-investor';
+
     try {
-      const response = await axios.post('https://fundev-backend.onrender.com/api/user/login', {
+      const response = await axios.post(endpoint, {
         email,
         password,
       });
@@ -21,7 +26,7 @@ export function LoginForm({ onClose }: { onClose: () => void }) {
         // Handle success (e.g., display a message or save the token)
         setSuccess('Login successful!');
         localStorage.setItem('token', response.data.token);  // Save the token to localStorage
-        console.log('User logged in:', response.data);
+        console.log('Logged in:', response.data);
       } else {
         // Handle error (e.g., display a message)
         setError(response.data.message || 'Login failed.');
@@ -32,6 +37,12 @@ export function LoginForm({ onClose }: { onClose: () => void }) {
     }
   };
 
+  const handleLoginTypeChange = (type: 'user' | 'investor') => {
+    setLoginType(type);
+    setSuccess(''); // Clear success message when switching login type
+    setError('');   // Clear error message when switching login type
+  };
+
   return (
     <div className="relative max-w-md w-full mx-auto rounded-lg p-4 shadow-md bg-white">
       <button
@@ -40,8 +51,12 @@ export function LoginForm({ onClose }: { onClose: () => void }) {
       >
         ✖
       </button>
-      <h2 className="font-bold text-xl text-gray-800">Login to Government Portal</h2>
-      <p className="text-gray-600 text-sm mt-2">Log in with your email and password</p>
+      <h2 className="font-bold text-xl text-gray-800">
+        {loginType === 'user' ? 'Login as User' : 'Login as Investor'}
+      </h2>
+      <p className="text-gray-600 text-sm mt-2">
+        {loginType === 'user' ? 'Log in with your email and password as a user' : 'Log in with your email and password as an investor'}
+      </p>
 
       <form className="my-4" onSubmit={handleSubmit}>
         <div className="mb-4">
@@ -75,6 +90,23 @@ export function LoginForm({ onClose }: { onClose: () => void }) {
         {error && <p className="text-red-500">{error}</p>}
         {success && <p className="text-green-500">{success}</p>}
 
+        <div className="flex gap-4 mb-4">
+          <button
+            className="bg-blue-600 text-white rounded-md h-10 w-full font-medium"
+            type="button"
+            onClick={() => handleLoginTypeChange('user')}
+          >
+            Log In as User
+          </button>
+          <button
+            className="bg-green-600 text-white rounded-md h-10 w-full font-medium"
+            type="button"
+            onClick={() => handleLoginTypeChange('investor')}
+          >
+            Log In as Investor
+          </button>
+        </div>
+        
         <button
           className="bg-blue-600 text-white rounded-md h-10 w-full font-medium"
           type="submit"

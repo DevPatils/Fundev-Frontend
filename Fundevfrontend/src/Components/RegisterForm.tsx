@@ -9,7 +9,7 @@ export function RegisterForm({ onClose }: { onClose: () => void }) {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleUserRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
@@ -21,12 +21,35 @@ export function RegisterForm({ onClose }: { onClose: () => void }) {
 
       if (response.status === 201) {
         // Handle success (e.g., display a message or save the token)
-        setSuccess('Registration successful!');
+        setSuccess('User registration successful!');
         localStorage.setItem('token', response.data.token);  // Save the token to localStorage
         console.log('User registered:', response.data);
       } else {
         // Handle error (e.g., display a message)
-        setError(response.data.message || 'Registration failed.');
+        setError(response.data.message || 'User registration failed.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      setError('An error occurred. Please try again.');
+    }
+  };
+
+  const handleInvestorRegister = async () => {
+    try {
+      const response = await axios.post('https://fundev-backend.onrender.com/api/user/register-investor', {
+        name,
+        email,
+        password,
+      });
+
+      if (response.status === 201) {
+        // Handle success (e.g., display a message or save the token)
+        setSuccess('Investor registration successful!');
+        localStorage.setItem('token', response.data.token);  // Save the token to localStorage
+        console.log('Investor registered:', response.data);
+      } else {
+        // Handle error (e.g., display a message)
+        setError(response.data.message || 'Investor registration failed.');
       }
     } catch (error) {
       console.error('Error:', error);
@@ -45,7 +68,7 @@ export function RegisterForm({ onClose }: { onClose: () => void }) {
       <h2 className="font-bold text-xl text-gray-800">Register to Government Portal</h2>
       <p className="text-gray-600 text-sm mt-2">Sign up with your name, email, and password</p>
 
-      <form className="my-4" onSubmit={handleSubmit}>
+      <form className="my-4" onSubmit={handleUserRegister}>
         <div className="mb-4">
           <label htmlFor="register-name" className="block text-gray-700">
             Name
@@ -95,9 +118,17 @@ export function RegisterForm({ onClose }: { onClose: () => void }) {
           className="bg-blue-600 text-white rounded-md h-10 w-full font-medium"
           type="submit"
         >
-          Register
+          Register as User
         </button>
       </form>
+
+      {/* Investor Registration Button */}
+      <button
+        className="bg-green-600 text-white rounded-md h-10 w-full font-medium mt-4"
+        onClick={handleInvestorRegister}
+      >
+        Register as Investor
+      </button>
     </div>
   );
 }
