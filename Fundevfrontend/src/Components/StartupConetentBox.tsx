@@ -15,7 +15,9 @@ const StartupContentBox = () => {
             <div className="w-1/2 flex justify-end">
                 <img src={Welcome} alt="Welcome" className="h-80 w-auto rounded-md shadow-lg" />
             </div>
+
         </div>
+
     );
 };
 

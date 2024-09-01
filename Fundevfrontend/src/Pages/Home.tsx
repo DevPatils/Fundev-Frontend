@@ -12,7 +12,7 @@ const Home = () => {
     <div>
         <TopNavbar/>
         <BottomNavbar/>
-        <div className="flex flex-row border border-gray-300 p-4 rounded-lg">
+        <div className="flex flex-row border items-center border-gray-300 p-4 rounded-lg">
             <div className="w-4/5 pr-4">
                 <AutoSwipingCards />
             </div>
