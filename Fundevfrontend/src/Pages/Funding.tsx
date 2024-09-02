@@ -3,6 +3,7 @@ import BottomNavbar from '../Components/BottomNavbar'
 import Footer from '../Components/Footer'
 import Fundingsteps from '../Components/Fundingsteps'
 
+
 const Funding = () => {
   return (
     <div>
@@ -13,5 +14,6 @@ const Funding = () => {
     </div>
   )
 }
+
 
 export default Funding
