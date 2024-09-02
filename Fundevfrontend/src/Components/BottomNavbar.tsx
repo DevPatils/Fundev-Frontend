@@ -60,7 +60,8 @@ const BottomNavbar: React.FC = () => {
                     Funding
                 </button>
                 <button className="flex-1 mx-2 py-2 bg-white text-blue-500 rounded hover:bg-blue-600">Patent Application</button>
-                <button className="flex-1 mx-2 py-2 bg-white text-blue-500 rounded hover:bg-blue-600">Schemes</button>
+                <button className="flex-1 mx-2 py-2 bg-white text-blue-500 rounded hover:bg-blue-600"
+                    onClick={() => navigate('/schemes')}>Schemes</button>
                 <button className="flex-1 mx-2 py-2 bg-white text-blue-500 rounded hover:bg-blue-600">Meetups</button>
             </div>
 
