@@ -7,7 +7,6 @@ export function OnboardForm({ onClose }: { onClose: () => void }) {
     const [description, setDescription] = useState('');
     const [industry, setIndustry] = useState('');
     const [fundingGoal, setFundingGoal] = useState('');
-    const [logoBase64, setLogoBase64] = useState<string | null>(null); // Store Base64 encoded logo
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
     const navigate = useNavigate();
@@ -16,58 +15,37 @@ export function OnboardForm({ onClose }: { onClose: () => void }) {
         const token = localStorage.getItem('token');
         if (!token) {
             alert('Login required!');
-            
+            navigate('/');
         }
     }, [navigate]);
-
-    // Convert image file to Base64
-    const handleLogoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setLogoBase64(reader.result as string); // Store Base64 data
-            };
-            reader.readAsDataURL(file);
-        }
-    };
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        // Reset messages
-        setError('');
-        setSuccess('');
-
         try {
-            const response = await axios.post('http://localhost:3000/api/startup/onboard', {
+            // Send startup details to backend
+            const response = await axios.post('https://fundev-backend.onrender.com/api/startup/onboard', {
                 name,
                 description,
                 industry,
                 fundingGoal,
-                logoBase64, // Send Base64 encoded logo as part of the payload
             }, {
                 headers: {
-                    'auth-token': localStorage.getItem('token'),
+                    'auth-token': localStorage.getItem('token'), // Authorization token
                     'Content-Type': 'application/json', // JSON payload
                 }
             });
 
-            if (response.status === 201) {
+            if (response.status === 200) {
                 setSuccess('Startup onboarded successfully!');
                 console.log('Startup onboarded:', response.data);
-                // Optionally close the form after successful submission
-                onClose();
+                onClose(); // Optionally close the form after success
             } else {
                 setError(response.data.message || 'Onboarding failed.');
             }
         } catch (error) {
-            if (axios.isAxiosError(error) && error.response) {
-                setError(`Error: ${error.response.status} - ${error.response.data.message || 'An error occurred'}`);
-            } else {
-                setError('An error occurred. Please try again.');
-            }
             console.error('Error:', error);
+            setError('An error occurred. Please try again.');
         }
     };
 
@@ -139,19 +117,6 @@ export function OnboardForm({ onClose }: { onClose: () => void }) {
                         value={fundingGoal}
                         onChange={(e) => setFundingGoal(e.target.value)}
                         required
-                    />
-                </div>
-
-                <div className="mb-4">
-                    <label htmlFor="startup-logo" className="block text-gray-700">
-                        Logo
-                    </label>
-                    <input
-                        id="startup-logo"
-                        type="file"
-                        accept="image/*"
-                        className="border border-gray-300 rounded-lg p-2 w-full"
-                        onChange={handleLogoChange}
                     />
                 </div>
 
