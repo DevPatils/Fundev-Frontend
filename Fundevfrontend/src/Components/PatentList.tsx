@@ -1,9 +1,18 @@
 // src/components/PatentList.tsx
 import React, { useEffect, useState } from 'react';
-import { fetchAllPatents } from '../assets/Services/PatientService';
+import { fetchAllPatents } from '../assets/Services/PatentService';
 
 const PatentList: React.FC = () => {
-    const [patents, setPatents] = useState<any[]>([]);
+    interface Patent {
+        id: number;
+        title: string;
+        description: string;
+        inventorName: string;
+        filingDate: string;
+        status?: string;
+    }
+
+    const [patents, setPatents] = useState<Patent[]>([]);
     const [error, setError] = useState<string>('');
 
     useEffect(() => {
@@ -13,6 +22,7 @@ const PatentList: React.FC = () => {
                 setPatents(result.patents);
             } catch (error) {
                 setError('Failed to load patents.');
+                console.log(error);
             }
         };
 

@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './Pages/Home';
 import Funding from './Pages/Funding';
 import Schemes from './Pages/Schemes';
-import PatentPage from './Pages/PatientPage'; // Import the PatentPage
+import PatentPage from './Pages/Patent'; // Import the PatentPage
 
 function App() {
   return (

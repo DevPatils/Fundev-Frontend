@@ -1,6 +1,6 @@
 // src/components/PatentForm.tsx
 import React, { useState } from 'react';
-import { submitPatent } from '../assets/Services/PatientService';
+import { submitPatent } from '../assets/Services/PatentService';
 
 interface PatentFormData {
     title: string;
@@ -38,7 +38,9 @@ const PatentForm: React.FC = () => {
                 inventorName: '',
                 filingDate: '',
             });
+            console.log('Patent submitted:', result);
         } catch (error) {
+            console.error('Error:', error);
             setMessage('Failed to submit patent. Please try again.');
         } finally {
             setIsSubmitting(false);

@@ -7,10 +7,10 @@ import Fundingsteps from '../Components/Fundingsteps'
 const Funding = () => {
   return (
     <div>
-                <TopNavbar/>
-                <BottomNavbar/>
-                <Fundingsteps />
-                <Footer/>
+      <TopNavbar />
+      <BottomNavbar />
+      <Fundingsteps />
+      <Footer />
     </div>
   )
 }

@@ -1,6 +1,6 @@
 import React from 'react';
-import PatentForm from '../Components/Patientform';
-import PatentList from '../Components/Patientlist';
+import PatentForm from '../Components/PatentForm';
+import PatentList from '../Components/PatentList';
 
 const PatentPage: React.FC = () => {
     return (

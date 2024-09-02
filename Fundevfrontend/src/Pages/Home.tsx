@@ -5,8 +5,6 @@ import Footer from '../Components/Footer';
 import AutoSwipingCards from '../Components/AutoSwipingCards';
 import TopFacilities from '../Components/TopFacilities';
 import StartupContentBox from '../Components/StartupConetentBox';
-import PatentForm from '../Components/Patientform'; // Import the PatentForm component
-import PatentList from '../Components/Patientlist'; // Import the PatentList component
 
 const Home: React.FC = () => {
   return (
@@ -27,17 +25,7 @@ const Home: React.FC = () => {
         <StartupContentBox />
 
         {/* Patent Management Section */}
-        <section className="mt-12">
-          <h2 className="text-2xl font-bold text-center mb-8">Patent Management</h2>
-          <div className="flex flex-col lg:flex-row gap-8">
-            <div className="lg:w-1/2">
-              <PatentForm />
-            </div>
-            <div className="lg:w-1/2">
-              <PatentList />
-            </div>
-          </div>
-        </section>
+        
       </main>
 
       <Footer />

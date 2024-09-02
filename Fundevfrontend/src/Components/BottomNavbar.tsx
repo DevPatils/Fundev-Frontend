@@ -4,7 +4,7 @@ import aazadi from "../assets/azadi.jpg";
 import amblum from "../assets/gog.jpeg";
 import { LoginForm } from "./LoginForm";
 import { RegisterForm } from "./RegisterForm";
-import PatentForm from "./Patientform";
+import PatentForm from "./PatentForm";
 
 const BottomNavbar: React.FC = () => {
   const [formType, setFormType] = useState<"login" | "register" | null>(null);

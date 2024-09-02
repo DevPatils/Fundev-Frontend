@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import { PlusIcon } from '@heroicons/react/24/outline';
 import fund from '../assets/info.jpg';
 import OnboardForm from './startuponboarding';
+import axios from 'axios';
 
 function Fundingsteps() {
   const [showform, setShowform] = useState(false);
@@ -75,6 +76,32 @@ function Fundingsteps() {
       )
     : startups;
 
+  const handleFundStartup = async (startupId: number) => {
+    const amount = prompt('Enter the amount to invest:');
+    if (!amount || isNaN(Number(amount))) {
+      alert('Please enter a valid amount.');
+      return;
+    }
+
+    try {
+      const token = localStorage.getItem('authToken');
+      const response = await axios.post(
+        'https://fundev-backend.onrender.com/api/investment/invest',
+        { startupId, amount: Number(amount) },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Pass the auth token
+          },
+        }
+      );
+      alert('Investment successful!');
+      console.log('Investment response:', response.data);
+    } catch (error) {
+      console.error('Error making investment:', error);
+      alert('Investment failed. Please try again later.');
+    }
+  };
+
   return (
     <div className="flex flex-col items-center">
       <img src={fund} alt="Funding Steps" className="h-auto w-3/5 mb-4" />
@@ -113,6 +140,7 @@ function Fundingsteps() {
                     <th className="py-2 px-4 border-b text-right">Funding Goal</th>
                     <th className="py-2 px-4 border-b text-right">Raised Amount</th>
                     <th className="py-2 px-4 border-b text-left">Created At</th>
+                    <th className="py-2 px-4 border-b text-center">Fund</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -128,6 +156,14 @@ function Fundingsteps() {
                       </td>
                       <td className="py-2 px-4 border-b">
                         {new Date(startup.createdAt).toLocaleDateString()}
+                      </td>
+                      <td className="py-2 px-4 border-b text-center">
+                        <button
+                          onClick={() => handleFundStartup(startup.id)}
+                          className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 transition"
+                        >
+                          Fund Startup
+                        </button>
                       </td>
                     </tr>
                   ))}
