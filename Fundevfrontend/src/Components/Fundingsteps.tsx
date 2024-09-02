@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { PlusIcon } from '@heroicons/react/24/outline'; // Correct Heroicons import
-import fund from '../assets/funding.png';
+import fund from '../assets/info.jpg';
 import OnboardForm from './startuponboarding';
 
 function Fundingsteps() {
