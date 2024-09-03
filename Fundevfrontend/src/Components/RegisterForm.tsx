@@ -24,6 +24,7 @@ export function RegisterForm({ onClose }: { onClose: () => void }) {
         setSuccess('User registration successful!');
         localStorage.setItem('token', response.data.token);  // Save the token to localStorage
         console.log('User registered:', response.data);
+        localStorage.setItem('userType', 'user');  // Save the user type as 'user'
       } else {
         // Handle error (e.g., display a message)
         setError(response.data.message || 'User registration failed.');
@@ -47,6 +48,7 @@ export function RegisterForm({ onClose }: { onClose: () => void }) {
         setSuccess('Investor registration successful!');
         localStorage.setItem('token', response.data.token);  // Save the token to localStorage
         console.log('Investor registered:', response.data);
+        localStorage.setItem('userType', 'investor');  // Save the user type as 'user'
       } else {
         // Handle error (e.g., display a message)
         setError(response.data.message || 'Investor registration failed.');

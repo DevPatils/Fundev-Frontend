@@ -8,6 +8,7 @@ interface Startup {
   fundingGoal: number;
   raisedAmount: number;
   createdAt: string;
+
   updatedAt: string;
   userId: number;
 }
@@ -19,6 +20,7 @@ interface StartupListProps {
   error: string | null;
   filterIndustry: string | null;
   handleSort: () => void;
+  listtype: string;
   handleFilter: () => void;
   handleFundStartup: (startupId: number) => void;
 }
@@ -29,6 +31,7 @@ const StartupList: React.FC<StartupListProps> = ({
   loading,
   error,
   filterIndustry,
+  listtype,
   handleSort,
   handleFilter,
   handleFundStartup,
@@ -94,7 +97,7 @@ const StartupList: React.FC<StartupListProps> = ({
                       onClick={() => handleFundStartup(startup.id)}
                       className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-green-600 transition"
                     >
-                      Details
+                      {listtype === 'invest' ? 'Fund' : 'Details'}
                     </button>
                   </td>
                 </tr>

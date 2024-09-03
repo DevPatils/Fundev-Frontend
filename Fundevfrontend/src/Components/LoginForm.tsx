@@ -26,7 +26,9 @@ export function LoginForm({ onClose }: { onClose: () => void }) {
       if (response.status === 200) {
         setSuccess('Login successful!');
         localStorage.setItem('token', response.data.token);
+        localStorage.setItem('userType', loginType);  // Store user type in localStorage
         console.log('Logged in:', response.data);
+
         navigate("/Schemes");
       } else {
         setError(response.data.message || 'Login failed.');

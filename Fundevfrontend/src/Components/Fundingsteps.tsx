@@ -68,7 +68,7 @@ function Fundingsteps() {
     fetchStartups();
   }, []);
 
-  const handleFundStartup = async (startupId: number) => {
+   const handleFundStartup = async (startupId: number) => {
     const amount = prompt('Enter the amount to invest:');
     if (!amount || isNaN(Number(amount))) {
       alert('Please enter a valid amount.');
@@ -105,6 +105,7 @@ function Fundingsteps() {
           sortOrder={sortOrder}
           loading={loading}
           error={error}
+          listtype='details'
           filterIndustry={filterIndustry}
           handleSort={handleSort}
           handleFilter={handleFilter}

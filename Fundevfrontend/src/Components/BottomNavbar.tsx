@@ -11,6 +11,7 @@ const BottomNavbar: React.FC = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false); // State to control dropdown
   const navigate = useNavigate();
 
+  const userType = localStorage.getItem("userType");
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -140,9 +141,9 @@ const BottomNavbar: React.FC = () => {
         >
           Schemes
         </button>
-        <button className="flex-1 mx-2 py-2 bg-white text-blue-500 rounded hover:bg-blue-600 hover:text-white">
-          Meetups
-        </button>
+        {userType==="user"?"":<button className="flex-1 mx-2 py-2 bg-white text-blue-500 rounded hover:bg-blue-600 hover:text-white" onClick={()=>navigate('/invest')}>
+          Investment
+        </button>}
       </div>
 
       {formType === "login" && <LoginForm onClose={closeForm} />}

@@ -1,5 +1,5 @@
 import React from 'react';
-import PatentForm from '../Components/PatentForm';
+
 import PatentList from '../Components/PatentList';
 import TopNavbar from '../Components/TopNavbar';
 import BottomNavbar from '../Components/BottomNavbar';
