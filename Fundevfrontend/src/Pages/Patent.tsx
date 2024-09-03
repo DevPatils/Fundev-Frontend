@@ -1,14 +1,22 @@
 import React from 'react';
 import PatentForm from '../Components/PatentForm';
 import PatentList from '../Components/PatentList';
+import TopNavbar from '../Components/TopNavbar';
+import BottomNavbar from '../Components/BottomNavbar';
+import Footer from '../Components/Footer';
 
 const PatentPage: React.FC = () => {
     return (
+        <>
+        <TopNavbar />
+        <BottomNavbar />
         <div className="p-6">
-            <h1 className="text-3xl font-bold text-center mb-8">Patent Management</h1>
-            <PatentForm />
+            
+            
             <PatentList />
         </div>
+        <Footer />
+        </>
     );
 };
 

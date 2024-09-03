@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { PlusIcon } from '@heroicons/react/24/outline';
 import fund from '../assets/info.jpg';
 import OnboardForm from './startuponboarding';
 import axios from 'axios';
