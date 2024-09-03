@@ -43,7 +43,7 @@ const BottomNavbar: React.FC = () => {
         </div>
         <div className="search-login flex flex-row gap-10 mr-10">
           <div className="search-login flex flex-row gap-10">
-            <div className="search-bar flex justify-center items-center flex flex-row gap-5">
+            <div className="search-bar flex justify-center items-center flex-row gap-5">
               <input
                 type="text"
                 placeholder="Search"
@@ -62,6 +62,7 @@ const BottomNavbar: React.FC = () => {
                 >
                   <button
                     className="bg-white text-blue-500 p-2 rounded hover:bg-blue-600 hover:text-white"
+                    onClick={() => navigate("/myProfile")}
                   >
                     MyProfile
                   </button>

@@ -2,15 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { fetchAllPatents } from '../assets/Services/PatentService';
 import PatentForm from './PatentForm';
 
+export interface Patent {
+    id: number;
+    title: string;
+    description: string;
+    inventorName: string;
+    filingDate: string;
+    status?: string;
+}
 const PatentList: React.FC = () => {
-    interface Patent {
-        id: number;
-        title: string;
-        description: string;
-        inventorName: string;
-        filingDate: string;
-        status?: string;
-    }
 
     const [patents, setPatents] = useState<Patent[]>([]);
     const [error, setError] = useState<string>('');

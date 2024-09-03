@@ -4,18 +4,18 @@ import axios from 'axios';
 import TopNavbar from '../Components/TopNavbar';
 import BottomNavbar from '../Components/BottomNavbar';
 
+export interface Startup {
+  id: number;
+  name: string;
+  description: string;
+  industry: string;
+  fundingGoal: number;
+  raisedAmount: number;
+  createdAt: string;
+  updatedAt: string;
+  userId: number;
+}
 const Invest = () => {
-  interface Startup {
-    id: number;
-    name: string;
-    description: string;
-    industry: string;
-    fundingGoal: number;
-    raisedAmount: number;
-    createdAt: string;
-    updatedAt: string;
-    userId: number;
-  }
 
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const [filterIndustry, setFilterIndustry] = useState<string | null>(null);
