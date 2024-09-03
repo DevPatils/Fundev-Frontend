@@ -4,7 +4,7 @@ import BottomNavbar from '../Components/BottomNavbar';
 import Footer from '../Components/Footer';
 import AutoSwipingCards from '../Components/AutoSwipingCards';
 import TopFacilities from '../Components/TopFacilities';
-import StartupContentBox from '../Components/StartupConetentBox';
+import StartupContentBox from '../Components/StartupContent';
 
 const Home: React.FC = () => {
   return (

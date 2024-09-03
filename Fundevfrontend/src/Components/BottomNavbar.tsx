@@ -47,7 +47,7 @@ const BottomNavbar: React.FC = () => {
                 placeholder="Search"
                 className="w-60 p-2 rounded border border-gray-300"
               />
-              <button className="bg-white text-blue-500 p-2 rounded hover:bg-blue-600">
+              <button className="bg-white text-blue-500 p-2 rounded hover:bg-blue-600 hover:text-white">
                 Search
               </button>
             </div>
@@ -55,13 +55,13 @@ const BottomNavbar: React.FC = () => {
               {isLoggedIn ? (
                 <>
                   <button
-                    className="bg-white text-blue-500 p-2 rounded hover:bg-blue-600 "
+                    className="bg-white text-blue-500 p-2 rounded hover:bg-blue-600 hover:text-white"
                     onClick={handleLogout}
                   >
                     Logout
                   </button>
                   <button
-                    className="bg-white text-blue-500 p-2 rounded hover:bg-blue-600 "
+                    className="bg-white text-blue-500 p-2 rounded hover:bg-blue-600 hover:text-white"
                     onClick={() => navigate("/profile")}
                   >
                     MyProfile
@@ -70,13 +70,13 @@ const BottomNavbar: React.FC = () => {
               ) : (
                 <>
                   <button
-                    className="bg-white text-blue-500 p-2 rounded hover:bg-blue-600 "
+                    className="bg-white text-blue-500 p-2 rounded hover:bg-blue-600 hover:text-white "
                     onClick={() => setFormType("login")}
                   >
                     Login
                   </button>
                   <button
-                    className="bg-white text-blue-500 p-2 rounded hover:bg-blue-600 "
+                    className="bg-white text-blue-500 p-2 rounded hover:bg-blue-600 hover:text-white "
                     onClick={() => setFormType("register")}
                   >
                     Register
@@ -89,30 +89,30 @@ const BottomNavbar: React.FC = () => {
       </div>
       <div className="w-full bg-white border-t border-b p-4 flex justify-between items-center">
         <button
-          className="flex-1 mx-2 py-2 bg-white text-blue-500 rounded hover:bg-blue-600"
+          className="flex-1 mx-2 py-2 bg-white text-blue-500 rounded hover:bg-blue-600 hover:text-white"
           onClick={() => navigate("/")}
         >
           Home
         </button>
         <button
-          className="flex-1 mx-2 py-2 bg-white text-blue-500 rounded hover:bg-blue-600"
+          className="flex-1 mx-2 py-2 bg-white text-blue-500 rounded hover:bg-blue-600 hover:text-white"
           onClick={() => navigate("/funding")}
         >
           Funding
         </button>
         <button
-          className="flex-1 mx-2 py-2 bg-white text-blue-500 rounded hover:bg-blue-600"
+          className="flex-1 mx-2 py-2 bg-white text-blue-500 rounded hover:bg-blue-600 hover:text-white"
           onClick={() => navigate("/patents")}
         >
           Patent Application
         </button>
         <button
-          className="flex-1 mx-2 py-2 bg-white text-blue-500 rounded hover:bg-blue-600"
+          className="flex-1 mx-2 py-2 bg-white text-blue-500 rounded hover:bg-blue-600 hover:text-white"
           onClick={() => navigate("/schemes")}
         >
           Schemes
         </button>
-        <button className="flex-1 mx-2 py-2 bg-white text-blue-500 rounded hover:bg-blue-600">
+        <button className="flex-1 mx-2 py-2 bg-white text-blue-500 rounded hover:bg-blue-600 hover:text-white">
           Meetups
         </button>
       </div>

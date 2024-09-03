@@ -105,7 +105,7 @@ const PatentForm: React.FC = () => {
                         disabled={isSubmitting}
                         className={`px-4 py-2 font-semibold text-white rounded-md shadow-sm focus:outline-none ${isSubmitting ? 'bg-gray-500' : 'bg-indigo-600 hover:bg-indigo-700'} transition-colors duration-300`}
                     >
-                        {isSubmitting ? 'Submitting...' : 'Submit Patent'}
+                        {isSubmitting ? 'Submitting...' : 'File Patent'}
                     </button>
                 </div>
                 {message && (
