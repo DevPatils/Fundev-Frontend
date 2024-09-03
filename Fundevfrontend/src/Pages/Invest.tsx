@@ -3,6 +3,8 @@ import axios from 'axios';
 import TopNavbar from '../Components/TopNavbar';
 import BottomNavbar from '../Components/BottomNavbar';
 import StartupList from '../Components/StartupList';
+import FilterCard from '../Components/FilterCard';
+import Footer from '../Components/Footer';
 
 const Invest = () => {
     interface Startup {
@@ -20,6 +22,7 @@ const Invest = () => {
     const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
     const [filterIndustry, setFilterIndustry] = useState<string | null>(null);
     const [startups, setStartups] = useState<Startup[]>([]);
+    const [industries, setIndustries] = useState<string[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [selectedStartupId, setSelectedStartupId] = useState<number | null>(null);
@@ -43,6 +46,8 @@ const Invest = () => {
             const data = await response.json();
             if (Array.isArray(data.startups)) {
                 setStartups(data.startups);
+                const uniqueIndustries = Array.from(new Set(data.startups.map((startup: Startup) => startup.industry)));
+                setIndustries(uniqueIndustries);
             } else {
                 throw new Error('Unexpected data format');
             }
@@ -83,7 +88,6 @@ const Invest = () => {
             alert('Investment successful!');
             console.log('Investment response:', response.data);
 
-            // Refresh the startup list after a successful investment
             fetchStartups();
             setShowInvestmentCard(false);
         } catch (error) {
@@ -96,23 +100,40 @@ const Invest = () => {
         setShowInvestmentCard(false);
     };
 
+    const handleFilterChange = (industry: string | null) => {
+        setFilterIndustry(industry);
+    };
+
     return (
-        <div>
+        <>
             <TopNavbar />
             <BottomNavbar />
-            <div className="flex w-full h-[750px]">
-                {/* Startup List (left side) */}
-                <StartupList
-                    startups={startups}
-                    sortOrder={sortOrder}
-                    loading={loading}
-                    error={error}
-                    listtype="invest"
-                    filterIndustry={filterIndustry}
-                    handleSort={handleSort}
-                    handleFilter={() => {}} // No industry filter
-                    handleFundStartup={handleFundStartup}
-                />
+            <div className="flex flex-col h-[750px]">
+                <div className="flex flex-grow">
+                    {/* Filter Card (left side) */}
+                    <div className="w-80 p-4 bg-gray-100">
+                        <FilterCard
+                            industries={industries}
+                            onFilterChange={handleFilterChange}
+                        />
+                    </div>
+                    {/* Startup List (right side) */}
+                    <div className="flex-1 p-4">
+                        <StartupList
+                            startups={startups.filter(startup =>
+                                filterIndustry ? startup.industry === filterIndustry : true
+                            )}
+                            sortOrder={sortOrder}
+                            loading={loading}
+                            error={error}
+                            listtype="invest"
+                            filterIndustry={filterIndustry}
+                            handleSort={handleSort}
+                            handleFilter={() => {}} // No industry filter
+                            handleFundStartup={handleFundStartup}
+                        />
+                    </div>
+                </div>
                 {showInvestmentCard && (
                     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
                         <div className="bg-white p-6 rounded-lg shadow-lg max-w-lg w-full relative">
@@ -144,8 +165,10 @@ const Invest = () => {
                         </div>
                     </div>
                 )}
+                <Footer />
             </div>
-        </div>
+            
+        </>
     );
 };
 
