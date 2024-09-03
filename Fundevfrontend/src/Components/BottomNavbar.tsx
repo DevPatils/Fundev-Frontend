@@ -7,18 +7,19 @@ import { RegisterForm } from "./RegisterForm";
 
 const BottomNavbar: React.FC = () => {
   const [formType, setFormType] = useState<"login" | "register" | null>(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // State to check if user is logged in
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false); // State to control dropdown
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem("token"); // Assume token is stored in localStorage
+    const token = localStorage.getItem("token");
     if (token) {
       setIsLoggedIn(true);
     }
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem("token"); // Remove token on logout
+    localStorage.removeItem("token");
     setIsLoggedIn(false);
     navigate("/"); // Navigate to home or login page after logout
   };
@@ -53,35 +54,62 @@ const BottomNavbar: React.FC = () => {
             </div>
             <div className="login-bar flex justify-center items-center gap-5 mr-[15%]">
               {isLoggedIn ? (
-                <>
+                <div
+                  className="relative"
+                  onMouseEnter={() => setIsDropdownOpen(true)}
+                  onMouseLeave={() => setIsDropdownOpen(false)}
+                >
                   <button
                     className="bg-white text-blue-500 p-2 rounded hover:bg-blue-600 hover:text-white"
-                    onClick={handleLogout}
-                  >
-                    Logout
-                  </button>
-                  <button
-                    className="bg-white text-blue-500 p-2 rounded hover:bg-blue-600 hover:text-white"
-                    onClick={() => navigate("/profile")}
                   >
                     MyProfile
                   </button>
-                </>
+                  {isDropdownOpen && (
+                    <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded shadow-lg">
+                      <button
+                        className="block w-full text-left p-2 hover:bg-blue-100"
+                        onClick={() => navigate("/my-startup")}
+                      >
+                        My Startup
+                      </button>
+                      <button
+                        className="block w-full text-left p-2 hover:bg-blue-100"
+                        onClick={() => navigate("/my-investment")}
+                      >
+                        My Investment
+                      </button>
+                      <button
+                        className="block w-full text-left p-2 hover:bg-blue-100"
+                        onClick={() => navigate("/patent-status")}
+                      >
+                        Patent Status
+                      </button>
+                    </div>
+                  )}
+                </div>
               ) : (
                 <>
                   <button
-                    className="bg-white text-blue-500 p-2 rounded hover:bg-blue-600 hover:text-white "
+                    className="bg-white text-blue-500 p-2 rounded hover:bg-blue-600 hover:text-white"
                     onClick={() => setFormType("login")}
                   >
                     Login
                   </button>
                   <button
-                    className="bg-white text-blue-500 p-2 rounded hover:bg-blue-600 hover:text-white "
+                    className="bg-white text-blue-500 p-2 rounded hover:bg-blue-600 hover:text-white"
                     onClick={() => setFormType("register")}
                   >
                     Register
                   </button>
                 </>
+              )}
+              {isLoggedIn && (
+                <button
+                  className="bg-white text-blue-500 p-2 rounded hover:bg-blue-600 hover:text-white"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </button>
               )}
             </div>
           </div>

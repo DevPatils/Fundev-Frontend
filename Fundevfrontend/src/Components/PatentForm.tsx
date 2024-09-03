@@ -1,5 +1,5 @@
-// src/components/PatentForm.tsx
 import React, { useState } from 'react';
+import { XMarkIcon } from '@heroicons/react/24/solid';
 import { submitPatent } from '../assets/Services/PatentService';
 
 interface PatentFormData {
@@ -9,7 +9,7 @@ interface PatentFormData {
     filingDate: string;
 }
 
-const PatentForm: React.FC = () => {
+const PatentForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     const [formData, setFormData] = useState<PatentFormData>({
         title: '',
         description: '',
@@ -48,7 +48,13 @@ const PatentForm: React.FC = () => {
     };
 
     return (
-        <div className="max-w-lg mx-auto p-6 bg-white border border-gray-200 rounded-lg shadow-lg">
+        <div className="relative max-w-lg mx-auto p-6 bg-white border border-gray-200 rounded-lg shadow-lg">
+            <button
+                onClick={onClose}
+                className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+            >
+                <XMarkIcon className="h-6 w-6" />
+            </button>
             <h1 className="text-2xl font-semibold mb-6 text-center">Patent Application Form</h1>
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
