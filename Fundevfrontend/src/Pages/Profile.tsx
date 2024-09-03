@@ -77,7 +77,7 @@ const Profile = () => {
         if (userType === "investor") {
             fetchInvestments();
         }
-    }, [token]);
+    }, []);
 
     const handleStartupClick = (startup: Startup) => {
         setSelectedStartup(startup); // Set the selected startup to display in the card

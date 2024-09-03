@@ -13,8 +13,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/funding" element={<Funding />} />
         <Route path="/schemes" element={<Schemes />} />
-        <Route path="/invest" element={<Invest/>} />
-        <Route path="/myProfile" element={<Profile/>} />
+        <Route path="/invest" element={<Invest />} />
+        <Route path="/myProfile" element={<Profile />} />
         <Route path="/patents" element={<PatentPage />} /> {/* Add route for PatentPage */}
       </Routes>
     </Router>

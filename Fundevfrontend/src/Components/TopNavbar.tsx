@@ -6,7 +6,7 @@ const TopNavbar: React.FC = () => {
       <div className="flex items-center justify-between">
         {/* Left */}
         <div className="flex-none">
-          <span className="text-lg font-semibold">Government of India</span>
+          <span className="text-lg font-semibold">Government of Gujarat</span>
         </div>
 
         {/* Center */}
