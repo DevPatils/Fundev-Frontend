@@ -31,10 +31,13 @@ const BottomNavbar: React.FC = () => {
     <div className="bottomnav">
       <div className="upperlogos bg-white flex items-center h-[30%] justify-between">
         {/* Left-aligned amblum image */}
-        <img src={amblum} alt="amblum" className="w-[9%] h-[15%] object-contain" />
+        <div className="flex items-center ">
 
+          <img src={amblum} alt="amblum" className="w-[27%] h-[15%] object-contain" />
+          <h1 className="text-xl font-bold">Department For Promotions of Industry<br/> Trade Ministry of Commerce and Industry <br/> Goverment Of Gujarat </h1>
+        </div>
         {/* Centered aazadi image */}
-        <img src={aazadi} alt="aazadi" className="w-[12%] h-[15%] object-contain mx-auto" />
+        <img src={aazadi} alt="aazadi" className="w-[9%] h-[15%] object-contain mr-[22%]" />
 
         {/* Right-aligned login/register buttons */}
         <div className="flex flex-row gap-4 pr-7 items-center">
