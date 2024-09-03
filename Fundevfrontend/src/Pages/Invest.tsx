@@ -17,8 +17,8 @@ export interface Startup {
   updatedAt: string;
   userId: number;
 }
-const Invest = () => {
-const Invest = () => {
+
+export const Invest = () => {
     interface Startup {
         id: number;
         name: string;
@@ -58,7 +58,7 @@ const Invest = () => {
             const data = await response.json();
             if (Array.isArray(data.startups)) {
                 setStartups(data.startups);
-                const uniqueIndustries = Array.from(new Set(data.startups.map((startup: Startup) => startup.industry)));
+                const uniqueIndustries = Array.from(new Set<string>(data.startups.map((startup: Startup) => startup.industry)));
                 setIndustries(uniqueIndustries);
             } else {
                 throw new Error('Unexpected data format');
