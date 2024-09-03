@@ -1,14 +1,27 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import aazadi from "../assets/azadi.jpg";
 import amblum from "../assets/gog.jpeg";
 import { LoginForm } from "./LoginForm";
 import { RegisterForm } from "./RegisterForm";
-import PatentForm from "./PatentForm";
 
 const BottomNavbar: React.FC = () => {
   const [formType, setFormType] = useState<"login" | "register" | null>(null);
-  const navigate = useNavigate(); // Initialize useNavigate
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // State to check if user is logged in
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token"); // Assume token is stored in localStorage
+    if (token) {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token"); // Remove token on logout
+    setIsLoggedIn(false);
+    navigate("/"); // Navigate to home or login page after logout
+  };
 
   const closeForm = () => setFormType(null);
 
@@ -39,18 +52,37 @@ const BottomNavbar: React.FC = () => {
               </button>
             </div>
             <div className="login-bar flex justify-center items-center gap-5 mr-[15%]">
-              <button
-                className="bg-white text-blue-500 p-2 rounded hover:bg-blue-600 "
-                onClick={() => setFormType("login")}
-              >
-                Login
-              </button>
-              <button
-                className="bg-white text-blue-500 p-2 rounded hover:bg-blue-600 "
-                onClick={() => setFormType("register")}
-              >
-                Register
-              </button>
+              {isLoggedIn ? (
+                <>
+                  <button
+                    className="bg-white text-blue-500 p-2 rounded hover:bg-blue-600 "
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </button>
+                  <button
+                    className="bg-white text-blue-500 p-2 rounded hover:bg-blue-600 "
+                    onClick={() => navigate("/profile")}
+                  >
+                    MyProfile
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button
+                    className="bg-white text-blue-500 p-2 rounded hover:bg-blue-600 "
+                    onClick={() => setFormType("login")}
+                  >
+                    Login
+                  </button>
+                  <button
+                    className="bg-white text-blue-500 p-2 rounded hover:bg-blue-600 "
+                    onClick={() => setFormType("register")}
+                  >
+                    Register
+                  </button>
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -58,13 +90,13 @@ const BottomNavbar: React.FC = () => {
       <div className="w-full bg-white border-t border-b p-4 flex justify-between items-center">
         <button
           className="flex-1 mx-2 py-2 bg-white text-blue-500 rounded hover:bg-blue-600"
-          onClick={() => navigate("/")} // Navigate to the home route on click
+          onClick={() => navigate("/")}
         >
           Home
         </button>
         <button
           className="flex-1 mx-2 py-2 bg-white text-blue-500 rounded hover:bg-blue-600"
-          onClick={() => navigate("/funding")} // Navigate to the home route on click
+          onClick={() => navigate("/funding")}
         >
           Funding
         </button>

@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-import axios from "axios"; // Import Axios
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export function LoginForm({ onClose }: { onClose: () => void }) {
-  // State variables for form inputs
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-  const [loginType, setLoginType] = useState<'user' | 'investor'>('user'); // State to track login type
+  const [loginType, setLoginType] = useState<'user' | 'investor'>('user');
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -23,12 +24,11 @@ export function LoginForm({ onClose }: { onClose: () => void }) {
       });
 
       if (response.status === 200) {
-        // Handle success (e.g., display a message or save the token)
         setSuccess('Login successful!');
-        localStorage.setItem('token', response.data.token);  // Save the token to localStorage
+        localStorage.setItem('token', response.data.token);
         console.log('Logged in:', response.data);
+        navigate("/Schemes");
       } else {
-        // Handle error (e.g., display a message)
         setError(response.data.message || 'Login failed.');
       }
     } catch (error) {
@@ -37,10 +37,10 @@ export function LoginForm({ onClose }: { onClose: () => void }) {
     }
   };
 
-  const handleLoginTypeChange = (type: 'user' | 'investor') => {
-    setLoginType(type);
-    setSuccess(''); // Clear success message when switching login type
-    setError('');   // Clear error message when switching login type
+  const toggleLoginType = () => {
+    setLoginType(prevType => (prevType === 'user' ? 'investor' : 'user'));
+    setSuccess('');
+    setError('');
   };
 
   return (
@@ -51,16 +51,16 @@ export function LoginForm({ onClose }: { onClose: () => void }) {
       >
         ✖
       </button>
-      <h2 className="font-bold text-xl text-gray-800">
+      <h2 className="font-bold text-xl text-gray-800 mb-2">
         {loginType === 'user' ? 'Login as User' : 'Login as Investor'}
       </h2>
-      <p className="text-gray-600 text-sm mt-2">
+      <p className="text-gray-600 text-sm mb-4">
         {loginType === 'user' ? 'Log in with your email and password as a user' : 'Log in with your email and password as an investor'}
       </p>
 
-      <form className="my-4" onSubmit={handleSubmit}>
+      <form className="space-y-4" onSubmit={handleSubmit}>
         <div className="mb-4">
-          <label htmlFor="login-email" className="block text-gray-700">
+          <label htmlFor="login-email" className="block text-gray-700 mb-1">
             Email
           </label>
           <input
@@ -74,7 +74,7 @@ export function LoginForm({ onClose }: { onClose: () => void }) {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="login-password" className="block text-gray-700">
+          <label htmlFor="login-password" className="block text-gray-700 mb-1">
             Password
           </label>
           <input
@@ -87,26 +87,17 @@ export function LoginForm({ onClose }: { onClose: () => void }) {
           />
         </div>
 
-        {error && <p className="text-red-500">{error}</p>}
-        {success && <p className="text-green-500">{success}</p>}
+        {error && <p className="text-red-500 mb-4">{error}</p>}
+        {success && <p className="text-green-500 mb-4">{success}</p>}
 
-        <div className="flex gap-4 mb-4">
-          <button
-            className="bg-blue-600 text-white rounded-md h-10 w-full font-medium"
-            type="button"
-            onClick={() => handleLoginTypeChange('user')}
-          >
-            Log In as User
-          </button>
-          <button
-            className="bg-green-600 text-white rounded-md h-10 w-full font-medium"
-            type="button"
-            onClick={() => handleLoginTypeChange('investor')}
-          >
-            Log In as Investor
-          </button>
+        <div className="flex items-center mb-4">
+          <span className="text-gray-700 mr-3">Login as {loginType === 'user' ? 'User' : 'Investor'}</span>
+          <label className="relative inline-flex items-center cursor-pointer">
+            <input type="checkbox" className="sr-only peer" checked={loginType === 'investor'} onChange={toggleLoginType} />
+            <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+          </label>
         </div>
-        
+
         <button
           className="bg-blue-600 text-white rounded-md h-10 w-full font-medium"
           type="submit"

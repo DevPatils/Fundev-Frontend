@@ -1,11 +1,11 @@
-import  { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { PlusIcon } from '@heroicons/react/24/outline';
 import fund from '../assets/info.jpg';
 import OnboardForm from './startuponboarding';
 import axios from 'axios';
 
 function Fundingsteps() {
-  const [showform, setShowform] = useState(false);
+  const [showform, setShowform] = useState(true);
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const [filterIndustry, setFilterIndustry] = useState<string | null>(null);
 
@@ -106,9 +106,9 @@ function Fundingsteps() {
     <div className="flex flex-col items-center">
       <img src={fund} alt="Funding Steps" className="h-auto w-3/5 mb-4" />
 
-      <div className="flex w-full justify-between m-10">
+      <div className="flex w-full h-[750px]">
         {/* Startup List (left side) */}
-        <div className="w-2/5 border p-4">
+        <div className="flex-1 border p-4 flex flex-col">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-xl font-bold">Startup List</h2>
             <div className="flex space-x-2">
@@ -131,7 +131,7 @@ function Fundingsteps() {
           ) : error ? (
             <p className="text-red-500">{error}</p>
           ) : filteredStartups.length > 0 ? (
-            <div className="h-96 overflow-y-auto">
+            <div className="flex-1 overflow-y-auto">
               <table className="min-w-full bg-white">
                 <thead>
                   <tr>
@@ -176,16 +176,11 @@ function Fundingsteps() {
         </div>
 
         {/* Add Startup Form (right side) */}
-        <div className="w-3/5 border p-4">
+        <div className="w-2/5 border p-4 flex flex-col">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-xl font-bold">Add Your Startup</h2>
-            <button
-              onClick={handleAddclick}
-              className="flex items-center bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
-            >
-              <PlusIcon className="h-5 w-5 mr-2" />
-              Add your startup
-            </button>
+            
+            
           </div>
           {showform && <OnboardForm onClose={handleCloseForm} />}
         </div>
